@@ -10,8 +10,14 @@ int addition(int a, int b) {
 
 int main(void) {
 
-    int numberOne = 4;
-    int numberTwo = 10;
+    int numberOne;
+    int numberTwo;
+
+    printf("Enter a number:\n");
+    scanf("%d", &numberOne);
+
+    printf("Enter another number:\n");
+    scanf("%d", &numberTwo);
 
     int added = addition(numberOne, numberOne);
 
