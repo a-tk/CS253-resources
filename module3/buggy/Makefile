@@ -26,4 +26,4 @@ test: main
 	./main
 
 clean:
-	rm -f *.o *.d a.out main
+	rm -f *.o *.d *.s a.out main
