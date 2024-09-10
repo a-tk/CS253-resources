@@ -3,28 +3,28 @@
 #undef FLAG
 
 int main(void) {
-   
-   #ifdef FLAG
-   //fprintf allows us to select an output channel (stdout, stderr)
 
-   fprintf(stdout, "stdout: Hello world!\n");
+    #ifdef FLAG
+    //fprintf allows us to select an output channel (stdout, stderr)
 
-   fprintf(stderr, "ERROR: something wrong\n");
+    fprintf(stdout, "stdout: Hello world!\n");
 
-   #else
-   printf("Please enter a double\n");
+    fprintf(stderr, "ERROR: something wrong\n");
 
-   double number;
+    #else
+    printf("Please enter a double\n");
 
-   int returnCode = scanf("%lf", &number);
+    double number;
 
-   if (returnCode < 1) {
-      fprintf(stderr, "Error: Incorrect format\n");
-   } else {
-      printf("scanned %lf\n", number);
-   }
+    int returnCode = scanf("%lf", &number);
 
-   #endif
+    if (returnCode < 1) {
+        fprintf(stderr, "Error: Incorrect format\n");
+    } else {
+        printf("scanned %lf\n", number);
+    }
 
-   return 0;
+    #endif
+
+    return 0;
 }

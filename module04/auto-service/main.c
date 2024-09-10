@@ -3,7 +3,7 @@
 
 int main(void) {
 
-   /* Type your code here. */
+    /* Type your code here. */
 
-   return 0;
+    return 0;
 }
