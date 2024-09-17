@@ -17,4 +17,4 @@ bool.i: bool.c
 	$(CC) $(CFLAGS) -E $^ -o $@
 
 clean:
-	rm -f *.o *.d *.s *.i a.out main
+	rm -f *.o *.d *.s *.i a.out main bool
