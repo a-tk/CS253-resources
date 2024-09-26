@@ -34,20 +34,20 @@ You entered: 236.00 89.50 142.00 166.30 93.00
 ## Expected Program Output (with sample user input)
 ```
 Enter height 1:
-236.0
+56.0
 Enter height 2:
-89.5
+60.0
 Enter height 3:
-142.0
+58.0
 Enter height 4:
-166.3
+59.0
 Enter height 5:
-93.0
-You entered: 236.00 89.50 142.00 166.30 93.00 
+57.0
+You entered: 56.00 60.00 58.00 59.00 57.00 
 
-Total height: 726.80
-Average height: 145.36
-Max height: 236.00
+Total height: 290.00
+Average height: 58.00
+Max height: 60.00
 
 ```
 
