@@ -4,27 +4,47 @@
 
 int main(void) {
 
-    // declare data. Need an array for storage, some data for total and max height
+   double totalWeight = 0.0;
+   double maxWeight = 0.0;
+   /* Declare array of 5 doubles */
+   double teamWeights[TEAM_SIZE];
+   char c;
+   int rc;
 
-    /* Read Heights and store in array */
+   /* Read weights and store in array */
+   for (int i = 0; i < TEAM_SIZE; i++) { 
+      rc = 0;
+      while (rc == 0 || teamWeights[i] < 0) {
+         printf("Enter weight %d: ", (i + 1) );
+         rc = scanf("%lf", &teamWeights[i]);
 
-    /* Display Heights on a single line */
-    printf("You entered: ");
-    for (int i = 0; i < TEAM_SIZE; i++) {
-    }
-    printf("\n\n");
+         /* Consume all remaining characters in input buffer */
+         while((c = getchar()) != '\n' && c != EOF);
+      }
+   }
 
-    /* Total Height */
-    for (int i = 0; i < TEAM_SIZE; i++) {
-    }
+   /* Display weights on a single line */
+   printf("You entered: ");
+   for (int i = 0; i < TEAM_SIZE; i++) {
+      printf("%0.2lf ", teamWeights[i]);
+   }
+   printf("\n\n");
 
-    /* Calculate maxHeight */
-    for (int i = 0; i < TEAM_SIZE; i++) {
-    }
-    /* Print data */
-    printf("Total Height: %0.2lf\n", totalHeight);
-    printf("Average Height: %0.2lf\n", totalHeight/TEAM_SIZE);
-    printf("Max Height: %0.2lf\n", maxHeight);
+   /* Total weight */
+   for (int i = 0; i < TEAM_SIZE; i++) {
+      totalWeight += teamWeights[i];
+   }
 
-    return 0;
+   /* Calculate maxWeight */
+   for (int i = 0; i < TEAM_SIZE; i++) {
+      maxWeight = (teamWeights[i] > maxWeight)?teamWeights[i]:maxWeight;
+   }
+
+   printf("Total weight: %0.2lf\n", totalWeight);
+   printf("Average weight: %0.2lf\n", totalWeight/TEAM_SIZE);
+   printf("Max weight: %0.2lf\n", maxWeight);
+
+
+
+   return 0;
 }
