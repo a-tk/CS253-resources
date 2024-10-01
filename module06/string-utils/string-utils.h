@@ -1,6 +1,8 @@
 #ifndef STRING_UTILS_H
 #define STRING_UTILS_H
 
+#define MAX_LEN 10
+
 /* mystrnlen - determine the length of a fixed-size string */
 int mystrnlen(char *s, int maxlen);
 
