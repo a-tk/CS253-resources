@@ -68,4 +68,4 @@ Total: $13
 ```
 
 # Error Handling
-For the LabWarmup, please do not worry about user input errors in the UI. The purpose of this program is to test the ItemToPurchase struct and supporting functions.  Please focus your attention on implementing the expected behaviour for each function declared in the ItemToPurchase.h header file.
+Don't worry about user input errors in the UI. The purpose of this program is to test the ItemToPurchase struct and supporting functions.  Please focus your attention on implementing the expected behaviour for each function declared in the ItemToPurchase.h header file.
