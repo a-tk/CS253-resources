@@ -2,9 +2,9 @@
 #define ITEM_TO_PURCHASE_H
 
 typedef struct ItemToPurchase_struct {
-   char itemName[50];
-   int itemPrice;
-   int itemQuantity;
+    char itemName[50];
+    int itemPrice;
+    int itemQuantity;
 } ItemToPurchase;
 
 void MakeItemBlank(ItemToPurchase* item);
