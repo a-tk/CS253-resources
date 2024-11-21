@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#define MAXLINE 256
+#include "ourhdr.h"
 
 int main(void)
 {
