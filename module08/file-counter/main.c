@@ -11,7 +11,7 @@
 
 void printUsage(const char *programName) {
     fprintf(stdout,"Usage: %s [-d <arg>] [-r] [-f]\n", programName);
-    fprintf(stdout,"\t-f <arg>  The directory to scan\n");
+    fprintf(stdout,"\t-d <arg>  The directory to scan\n");
     fprintf(stdout,"\t-r        count regular files\n");
     fprintf(stdout,"\t-f        count folders\n");
     fprintf(stdout,"\t-h        print this help\n");
@@ -24,19 +24,23 @@ int main(int argc, char *argv[]) {
     int opt;
     int numberOfDirectories = 0;
     int numberOfRegularFiles = 0;
+    bool regularFiles = false;
+    bool directories = false;
+    bool dirSpecified = false;
 
     char directory[256];
 
     while ( (opt = getopt(argc, argv, "d:rfh")) != -1 ) {
         switch (opt) {
             case 'd':
-                printf("optarg is %s\n", optarg);
+                strncpy(directory, optarg, 255);
+                dirSpecified = true;
                 break;
             case 'r':
-                printf("option r selected\n");
+                regularFiles = true;
                 break;
             case 'f':
-                printf("option f selected\n");
+                directories = true;
                 break;
             case 'h':
                 printUsage(argv[0]);
@@ -45,6 +49,11 @@ int main(int argc, char *argv[]) {
                 printUsage(argv[0]);
                 exit(1);
         }
+    }
+
+    if (dirSpecified == false) {
+        fprintf(stderr, "Error: directory is required\n");
+        exit(3);
     }
 
     // Open the directory
@@ -58,10 +67,20 @@ int main(int argc, char *argv[]) {
 
     // Read entries from the directory
     while ((entry = readdir(dir)) != NULL) {
-        //TODO
+        if (entry->d_type == DT_DIR) {
+            numberOfDirectories++;
+        } else if (entry->d_type == DT_REG) {
+            numberOfRegularFiles++;
+        }
+    }
+    
+    if (regularFiles == true) {
+        printf("regular files: %d\n", numberOfRegularFiles);
     }
 
-    //print results
+    if (directories == true) {
+        printf("directories: %d\n", numberOfDirectories);
+    }
 
     // Check for read errors
     if (errno != 0) {
