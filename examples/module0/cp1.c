@@ -1,3 +1,6 @@
+/* cp program using character input and output */
+/* use like ./cp1 < file1 > file1.copy */
+/* compile like gcc -Wall -o cp1 cp1.c */
 #include <stdio.h>
 #include <stdlib.h>
 
