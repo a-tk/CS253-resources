@@ -1,5 +1,5 @@
 # Declaring the build, test and clean rules as phony means that no artifact
-#   is created by these rules with a cooresponding name.  Therefore, the
+#   is created by these rules with a corresponding name.  Therefore, the
 #   rule should run when executed.
 .PHONY: build test clean
 
