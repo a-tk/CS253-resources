@@ -1,5 +1,5 @@
 #include "square.h"
 
 int square(int d) {
-    return d * d;
+    return 2 * d;
 }
