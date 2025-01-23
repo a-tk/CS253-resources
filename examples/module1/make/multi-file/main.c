@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 
     int arg = atoi(argv[1]);
 
-    printf("the square of 4 is %d\n", square(4));
+    printf("the square of %d is %d\n", arg, square(4));
 
     return 0;
 
