@@ -15,7 +15,7 @@ Documentation:
     -endian.c is properly documented with comments for each function [10 points]
 
 
-Functionality: [60 points]
+Functionality: [65 points]
     -The project compiles without warnings using the provided Makefile [10 points]
 
     - Basic command-line interface: [10 points]
