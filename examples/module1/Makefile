@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
 build: range range.o range.s range.e
 
 range: range.o
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) range.o -o range
 
 range.o: range.c
 	gcc $(CFLAGS) -c range.c -o range.o
