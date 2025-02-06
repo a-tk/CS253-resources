@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# try one of these at a time
+msg='Hello me!'
+#msg="Hello $1" #uses the first parameter of the command
+#msg="Hello `whoami`" # command replacement
+
+echo $msg
