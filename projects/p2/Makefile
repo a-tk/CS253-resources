@@ -1,8 +1,8 @@
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
+CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g -D_GNU_SOURCE
 
-PROGS = shout whisper sep jn dedup cap
+PROGS = shout whisper jn wrp dedup cap
 
 .PHONY: build test clean
 
@@ -14,7 +14,7 @@ shout: shout.o
 whisper: whisper.o 
 	$(CC) $(CFLAGS) $^ -o $@
 
-sep: sep.o
+wrp: wrp.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 jn: jn.o

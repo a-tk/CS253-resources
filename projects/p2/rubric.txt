@@ -1,0 +1,29 @@
+CS253 Project 2: Text Assistants
+
+Grade: /100
+
+Overall Comments:
+
+-Submission:
+    -Prerequisite: all 6 programs compile with no errors! even if you didn't finish them all.
+    -no compiled files or test results are included in the submission [10 points]
+
+
+Documentation:
+	-README.md is completed: [10 points]
+    -each program is properly documented with comments for each function [10 points]
+
+
+Functionality: [70 points]
+    -The project compiles without warnings using the provided Makefile [10 points]
+
+    - whisper.c:                    [5 points]
+    - shout.c:                      [5 points]
+    - jn.c:                         [5 points]
+    - wrp.c:                        [5 points]
+    - cap.c:                        [5 points]
+    - dedup.c:                      [5 points]
+
+    - expected-out.txt is matched   [30 points]
+
+	

@@ -3,7 +3,7 @@
 #define MAX_LINE 1024
 
 int main(void) {
-    char buffer[1024] = {};
+    char buffer[MAX_LINE] = {};
 
     while (fgets(buffer, MAX_LINE, stdin) != NULL) {
         //process each buffer here
