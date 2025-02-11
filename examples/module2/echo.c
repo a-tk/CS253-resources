@@ -10,7 +10,9 @@ int main(void) {
 
 
     while ((linelen = getline(&line, &linecap, stdin))) {
-        fwrite(line, linelen, 1, stdout);
+        for (int i = 0; i < linelen; i++) {
+            putchar(line[i]);
+        }
     }
     return 0;
 }
