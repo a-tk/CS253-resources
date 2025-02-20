@@ -9,7 +9,7 @@ int main(void) {
     while (fgets(buffer, MAX_LINE, stdin) != NULL) {
         for(int i = 0; i < MAX_LINE; i++) {
             if (buffer[i] == ' ') {
-                buffer[i] == '\n';
+                buffer[i] = '\n';
             }
         }
         

@@ -9,9 +9,10 @@ void strcpy_1(char *d, char *s) {
 
 /* version 2 */
 void strcpy_2(char *d, char *s) {
-	while ((*d = *s) != '\0')
+	while ((*d = *s) != '\0') {
 		d++;
 		s++;
+    }
 }
 
 /* version 3 */
