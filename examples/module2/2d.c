@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 /* use the debugger to inspect this array */
 int main(void) {
@@ -16,6 +17,14 @@ int main(void) {
         for (int j = 0; j < n; j++) {
             X[i][j] = i;
         }
+    }
+
+    // print
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%d ", X[i][j]);
+        }
+        printf("\n");
     }
 
     // free
