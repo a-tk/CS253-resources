@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main(void) {
 
@@ -7,7 +9,8 @@ int main(void) {
         char *name;
     } j;
 
-    j.name = "my name";
+    j.name = (char *) malloc(sizeof(char) * 20);
+    strcpy(j.name, "my name");
     j.pid = 1234;
 
 
@@ -23,7 +26,7 @@ int main(void) {
 
     printf("%c\n", *p->name);
     printf("%c\n", *p->name++);
-    //printf("%c\n", (*p->name)++);
+    printf("%c\n", (*p->name)++);
     printf("%c\n", *p++->name);
 
     return 0;
