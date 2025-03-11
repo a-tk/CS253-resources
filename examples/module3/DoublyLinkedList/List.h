@@ -1,129 +1,86 @@
-#ifndef __LIST_H
-#define __LIST_H
+#ifndef LIST_H
+#define LIST_H
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "common.h"
-#include "Node.h"
+#include <stdbool.h>
+
+
+typedef struct node {
+    struct node *next;
+    struct node *prev;
+    int key;
+} Node;
+
 
 typedef struct list List;
 typedef struct list *ListPtr;
 
 struct list {
+    Node *head;
+    Node *tail;
     int size;
-    NodePtr head;
-    NodePtr tail;
+    
 };
 
-/**
- * Allocates a new List object and initializes its members.
- * <code>(size = 0; head = NULL, tail = NULL)</code>.
- *
- * @return a pointer to the allocated list.
+/* 
+ * Constructs an empty list
+ * Returns NULL upon failure
  */
-ListPtr createList(void);
+ListPtr CreateList(void);
 
-/**
- * Frees all elements of the given list and the <code>ListPtr</code> itself. 
- * Does nothing if list is <code>NULL</code>.
- *
- * @param list a pointer to a <code>List</code>.
+/* frees all memory associated with the list */
+void DestroyList(ListPtr L);
+
+/* Returns the number of elements in this list, or -1 if L is NULL */
+int ListSize(ListPtr L);
+
+/* Returns true if this list contains no elements, or if L is NULL */
+bool ListIsEmpty(ListPtr L);
+
+/* 
+ * Returns the Node at the specified position in this list
+ * Returns NULL if index is beyond the bounds of the List or L is NULL
  */
-void freeList(ListPtr list);
+Node *ListGet(ListPtr L, int index);
 
-/**
- * Returns the size of the given list.
- *
- * @param list a pointer to a <code>List</code>.
- * @return The current size of the list.
+/* 
+ * Returns the Node containing of the first occurrence of the specified 
+ * element in this list, or -1 if this list does not contain the element
+ * Returns -1 if L is NULL
  */
-int getSize(ListPtr list);
+Node *ListIndexOf(ListPtr L, int element);
 
-/**
- * Checks if the list is empty.
- *
- * @param  list a pointer to a <code>List</code>.
- * @return true if the list is empty; false otherwise.
+/* 
+ * Inserts the specified element at the front of the list
+ * The element at index when the method is called is retained in the List
+ * The order of the elements in the list is not specified after calling ListAdd
+ * Does nothing if index is negative. Does nothing if index is greater than L->size
  */
-bool isEmpty(ListPtr list);
+void ListAddAtFront(ListPtr L, int element);
 
-/**
- * Adds a node to the front of the list. After this method is called,
- * the given node will be the head of the list. (Node must be allocated
- * before it is passed to this function.) If the list and/or node are NULL,
- * the function will do nothing and return.
- *
- * @param list a pointer to a <code>List</code>.
- * @param node a pointer to the node to add.
+/*
+ * Appends the specified element to the end of this list. 
+ * Grows the array if more room is needed
  */
-void addAtFront(ListPtr list, NodePtr node);
+void ListAddAtRear(ListPtr L, int element);
 
-/**
- * Adds a node to the rear of the list. After this method is called,
- * the given node will be the head of the list. (Node must be allocated
- * before it is passed to this function.) If the list and/or node are NULL,
- * the function will do nothing and return.
- *
- * @param list a pointer to a <code>List</code>.
- * @param node a pointer to the node to add.
+/*
+ * Removes the element with the specified key
  */
-void addAtRear(ListPtr list, NodePtr node);
+void ListRemove(ListPtr L, int key);
 
-/**
- * Removes the node from the front of the list (the head node) and returns
- * a pointer to the node that was removed. If the list is NULL or empty,
- * the function will do nothing and return NULL.
- *
- * @param list a pointer to a <code>List</code>.
- * @return a pointer to the node that was removed.
+/* Sorts the elements in the list according to StringCompare */
+void ListReverse(ListPtr L);
+
+/* Removes all of the elements from this list. */
+void ListClear(ListPtr L);
+
+/*
+ * Prints a representation of this List.
+ * The representation consists of the List's int's 
+ * in the order they are stored, separated by newlines.
  */
-NodePtr removeFront(ListPtr list);
+void ListPrint(ListPtr L);
 
-/**
- * Removes the node from the rear of the list (the tail node) and returns
- * a pointer to the node that was removed. If the list is NULL or empty,
- * the function will do nothing and return NULL.
- *
- * @param list a pointer to a <code>List</code>.
- * @return a pointer to the node that was removed.
- */
-NodePtr removeRear(ListPtr list);
-
-/**
- * Finds and removes the node pointed to by the given node pointer and returns
- * the pointer to the node that was removed. If the list is NULL or empty, or the
- * node pointer is NULL, or the node is not found, the function will do nothing
- * and return NULL.
- *
- * @param list a pointer to a <code>List</code>.
- * @param node a pointer to the node to remove.
- * @return a pointer to the node that was removed.
- */
-NodePtr removeNode(ListPtr list, NodePtr node);
-
-/**
- * Searches the list for a node with the given key and returns the pointer to the
- * found node.
- *
- * @param list a pointer to a <code>List</code>.
- * @param key the value of the key to search for.
- * @return a pointer to the node that was found. Or <code>NULL</code> if a node with the given key is not 
- * found or the list is <code>NULL</code> or empty.
- */
-NodePtr search(ListPtr list, int key);
-
-/**
- * Reverses the order of the given list.
- *
- * @param list a pointer to a <code>List</code>.
- */
-void reverseList(ListPtr list);
-
-/**
- * Prints the list.
- *
- * @param list a pointer to a <code>List</code>.
- */
-void printList(ListPtr list);
-
-#endif /* __LIST_H */
+#endif // LIST_H

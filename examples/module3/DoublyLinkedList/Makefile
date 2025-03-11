@@ -1,22 +1,17 @@
-
 CC = gcc
-CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
+CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g -D_GNU_SOURCE
 LFLAGS =
 
-PROGS=SimpleTestList UnitTestList RandomTestList
-OBJECTS=List.o Node.o Job.o
+.PHONY = all clean test-all
+
+PROGS=simple-test
+OBJECTS=List.o
 
 all: $(PROGS)
 
-SimpleTestList: SimpleTestList.o $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
-
-UnitTestList: UnitTestList.o $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
-
-RandomTestList: RandomTestList.o $(OBJECTS)
+simple-test: simple-test.o $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 clean:
-	/bin/rm -f $(PROGS) *.o a.out  *.d
+	/bin/rm -f $(PROGS) *.o a.out *.d simple-test
 
