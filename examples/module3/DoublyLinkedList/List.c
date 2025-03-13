@@ -1,6 +1,15 @@
-
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "List.h"
+
+Node *CreateNode(int key) {
+    
+}
+
+void DestroyNode(Node *n) {
+
+}
 
 ListPtr CreateList(void) {
     ListPtr l = (ListPtr) malloc(sizeof(List));
@@ -20,60 +29,43 @@ ListPtr CreateList(void) {
 /* frees all memory associated with the list */
 void DestroyList(ListPtr L);
 
-
-static void count_n(Node *n, int a) {
-    if (n) {
-        count_n(n->next, a + 1);
-        return;
-    } else {
-        return;
-    }
-}
-
-
 /* Returns the number of elements in this list, or -1 if L is NULL */
-int ListSize(ListPtr L) {
-    if (L) {
-        return L->size;
-    } else {
-        return 0;
-    }
-}
-
+int ListSize(ListPtr L);
 
 /* Returns true if this list contains no elements, or if L is NULL */
 bool ListIsEmpty(ListPtr L);
 
-/* 
- * Returns the Node at the specified position in this list
- * Returns NULL if index is beyond the bounds of the List or L is NULL
+/**
+ * Search the list for the Node containing the specified key value
  */
-Node *ListGet(ListPtr L, int index);
+Node *ListSearch(ListPtr L, int key);
 
 /* 
- * Returns the Node containing of the first occurrence of the specified 
- * element in this list, or NULL if this list does not contain the element
- * Returns NULL if L is NULL
+ * Inserts the specified node at the front of the list
  */
-Node *ListNodeOf(ListPtr L, int element);
-
-/* 
- * Inserts the specified element at the front of the list
- * The element at index when the method is called is retained in the List
- * Does nothing if index is negative. Does nothing if index is greater than L->size
- */
-void ListAddAtFront(ListPtr L, int element);
+void ListAddAtFront(ListPtr L, Node *node);
 
 /*
- * Appends the specified element to the end of this list. 
- * Grows the array if more room is needed
+ * Appends the specified node to the end of this list.
  */
-void ListAddAtRear(ListPtr L, int element);
+void ListAddAtRear(ListPtr L, Node *node);
+
 
 /*
- * Removes the element with the specified key
+ * Removes the node at the front of the list
  */
-void ListRemove(ListPtr L, int key);
+Node *ListRemoveFront(ListPtr L);
+
+
+/**
+ * Removes the node at the rear of the list
+ */
+Node *ListRemoveRear(ListPtr L);
+
+/**
+ * Removes the node from the list L
+ */
+Node *ListRemoveNode(ListPtr L, Node *node);
 
 /* Sorts the elements in the list according to StringCompare */
 void ListReverse(ListPtr L);

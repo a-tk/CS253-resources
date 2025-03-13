@@ -23,6 +23,10 @@ struct list {
     
 };
 
+Node *CreateNode(int);
+
+void DestroyNode(Node *);
+
 /* 
  * Constructs an empty list
  * Returns NULL upon failure
@@ -38,37 +42,37 @@ int ListSize(ListPtr L);
 /* Returns true if this list contains no elements, or if L is NULL */
 bool ListIsEmpty(ListPtr L);
 
-/* 
- * Returns the Node at the specified position in this list
- * Returns NULL if index is beyond the bounds of the List or L is NULL
+/**
+ * Search the list for the Node containing the specified key value
  */
-Node *ListGet(ListPtr L, int index);
+Node *ListSearch(ListPtr L, int key);
 
 /* 
- * Returns the Node containing of the first occurrence of the specified 
- * element in this list, or -1 if this list does not contain the element
- * Returns -1 if L is NULL
+ * Inserts the specified node at the front of the list
  */
-Node *ListIndexOf(ListPtr L, int element);
-
-/* 
- * Inserts the specified element at the front of the list
- * The element at index when the method is called is retained in the List
- * The order of the elements in the list is not specified after calling ListAdd
- * Does nothing if index is negative. Does nothing if index is greater than L->size
- */
-void ListAddAtFront(ListPtr L, int element);
+void ListAddAtFront(ListPtr L, Node *node);
 
 /*
- * Appends the specified element to the end of this list. 
- * Grows the array if more room is needed
+ * Appends the specified node to the end of this list.
  */
-void ListAddAtRear(ListPtr L, int element);
+void ListAddAtRear(ListPtr L, Node *node);
+
 
 /*
- * Removes the element with the specified key
+ * Removes the node at the front of the list
  */
-void ListRemove(ListPtr L, int key);
+Node *ListRemoveFront(ListPtr L);
+
+
+/**
+ * Removes the node at the rear of the list
+ */
+Node *ListRemoveRear(ListPtr L);
+
+/**
+ * Removes the node from the list L
+ */
+Node *ListRemoveNode(ListPtr L, Node *node);
 
 /* Sorts the elements in the list according to StringCompare */
 void ListReverse(ListPtr L);

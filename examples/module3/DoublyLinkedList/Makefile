@@ -4,12 +4,16 @@ LFLAGS =
 
 .PHONY = all clean test-all
 
-PROGS=simple-test
+PROGS=simple-test RandomTestList
 OBJECTS=List.o
 
 all: $(PROGS)
 
 simple-test: simple-test.o $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
+
+
+RandomTestList: RandomTestList.o $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 clean:
