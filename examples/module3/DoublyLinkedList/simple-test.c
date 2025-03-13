@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
 
 	list = CreateList();
 	for (i = 0; i < n; i++) {
-		ListAddAtFront(list, (n-i));
+		ListAddAtFront(list, CreateNode(n-i));
 	}
 
 	ListPrint(list);
