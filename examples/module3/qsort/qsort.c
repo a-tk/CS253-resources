@@ -25,10 +25,10 @@ int compareAgeAscending(const void *a, const void *b) {
     }else if (a == NULL && b == NULL) {
         return 0;
     }else {
-        PersonPtr *aPerson = (PersonPtr *) a;
-        PersonPtr *bPerson  = (PersonPtr *) b;
+        PersonPtr aPerson = *(PersonPtr *) a;
+        PersonPtr bPerson  = *(PersonPtr *) b;
 
-        return (*aPerson)->age - (*bPerson)->age;
+        return aPerson->age - bPerson->age;
     }
 }
 
