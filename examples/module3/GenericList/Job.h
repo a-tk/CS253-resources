@@ -18,5 +18,7 @@ JobPtr createJob(int, char *);
 void freeJob(void * job);
 int jobCompare(const void *, const void *);
 char *jobToString(const void *);
+bool jobEvenFilter(const void *obj);
+bool noJobFilter(const void *obj);
 
 #endif /* __JOB_H */

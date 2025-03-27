@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 		ListAddAtFront(L, node);
 	}
 
-	if (n < 10) ListPrint(L);
+	if (n < 10) ListPrint(L, jobEvenFilter);
 
     DestroyList(L);
 

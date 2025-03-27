@@ -47,13 +47,15 @@ Node *ListSearch(ListPtr L, void *obj) {
     return t;
 }
 
-void ListPrint(ListPtr L) {
+void ListPrint(ListPtr L, bool (*filter)(const void *)) {
     if (L == NULL) return;
     NodePtr n = L->head;
 	while (n) {
-        char *s = L->ToString(n->item);
-		printf(" %s -->", s);
-        free(s); //experiment removing this
+        if (filter(n->item)) {
+            char *s = L->ToString(n->item);
+            printf(" %s -->", s);
+            free(s); //experiment removing this
+        }
 		n = n->next;
 	}
     printf(" NULL \n");

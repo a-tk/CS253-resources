@@ -1,5 +1,9 @@
 #include <string.h>
+#include <stdbool.h>
+
 #include "Job.h"
+
+#define UNUSED(x) (void)(x)
 
 JobPtr createJob(int jobid, char *info) {
     JobPtr newJob = (JobPtr) malloc(sizeof(Job));
@@ -30,4 +34,20 @@ void freeJob(void *job) {
     JobPtr theRealJob = (JobPtr) job;
     free(theRealJob->info);
     free(theRealJob);
+}
+
+bool noJobFilter(const void *obj) {
+    
+    UNUSED(obj);
+    return true;
+}
+
+bool jobEvenFilter(const void *obj) {
+    JobPtr j = (JobPtr)obj;
+
+    if ((j->jobid & 1) == 0) {
+        return true;
+    } else {
+        return false;
+    }
 }

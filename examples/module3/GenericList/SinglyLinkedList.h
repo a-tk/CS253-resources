@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct node Node;
 typedef struct node *NodePtr;
@@ -49,7 +50,7 @@ Node *ListSearch(ListPtr L, void *);
   Print the list from start to end.
   @param L pointer to front of the list
 */
-void ListPrint(ListPtr L);
+void ListPrint(ListPtr L, bool (*filter)(const void *));
 
 /**
  * Reverses the list in place
