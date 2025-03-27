@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "common.h"
 
 #define MAXPID_DIGITS 20
 

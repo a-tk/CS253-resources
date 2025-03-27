@@ -17,23 +17,23 @@ int main(int argc, char **argv) {
 	}
 	n = atoi(argv[1]);
 
-	L = createList(jobToString, freeJob);
+	L = CreateList(jobToString, freeJob);
 
 	for (i=0; i<n; i++) {
         j = createJob(i, " dummy job");
 
-		node = createNode(j);
+		node = CreateNode(j);
 
 		if (node == NULL) {
 			printf("Error allocating node for linked list\n");	
 			exit(1);
 		}
-		addAtFront(L, node);
+		ListAddAtFront(L, node);
 	}
 
-	if (n < 10) printList(L);
+	if (n < 10) ListPrint(L);
 
-    freeList(L);
+    DestroyList(L);
 
 	return 0;
 }

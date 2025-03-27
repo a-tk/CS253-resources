@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Job.h"
-
 typedef struct node Node;
 typedef struct node *NodePtr;
 
@@ -19,19 +17,19 @@ struct node {
 
 struct list {
 	NodePtr head;
-    char *(*toString)(const void *);
-    void (*freeObject)(void *);
+    char *(*ToString)(const void *);
+    void (*DestroyObject)(void *);
 };
 
 /**
   Create a list
   @return a pointer to the new list
 */
-ListPtr createList(char *(*toString)(const void *), void (*freeObject)(void *));
+ListPtr CreateList(char *(*toString)(const void *), void (*freeObject)(void *));
 
-NodePtr createNode(void *item);
+NodePtr CreateNode(void *item);
 
-void freeNode(NodePtr node);
+void DestroyNode(NodePtr node);
 
 /**
   Add a node to the front  of the list.
@@ -39,21 +37,21 @@ void freeNode(NodePtr node);
   @param node the new node to add
   @return the current pointer to the front of the list
  */
-void addAtFront(ListPtr L, NodePtr node);
+void ListAddAtFront(ListPtr L, NodePtr node);
 
 
 /**
   Print the list from start to end.
   @param L pointer to front of the list
 */
-void printList(ListPtr L);
+void ListPrint(ListPtr L);
 
 
 /**
   free the list
   @param L pointer to front of the list
 */
-void freeList(ListPtr L);
+void DestroyList(ListPtr L);
 
 
 #endif /* __SINGLYLINKEDLIST_H */ 

@@ -1,5 +1,5 @@
+#include <string.h>
 #include "Job.h"
-
 
 JobPtr createJob(int jobid, char *info) {
     JobPtr newJob = (JobPtr) malloc(sizeof(Job));
@@ -9,7 +9,7 @@ JobPtr createJob(int jobid, char *info) {
     return newJob;
 }
 
-//TODO the type! 
+
 char *jobToString(const void *job) {
     JobPtr theRealJob = (JobPtr) job;
     char *temp;
@@ -18,7 +18,7 @@ char *jobToString(const void *job) {
     return temp;
 }
 
-//TODO the type! 
+
 void freeJob(void *job) {
     if (job == NULL)
 	return;
