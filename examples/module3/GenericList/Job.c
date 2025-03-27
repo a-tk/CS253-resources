@@ -12,10 +12,14 @@ JobPtr createJob(int jobid, char *info) {
 
 char *jobToString(const void *job) {
     JobPtr theRealJob = (JobPtr) job;
-    char *temp;
-    temp = (char *) malloc(sizeof(char) * strlen(theRealJob->info) + 1 + MAXPID_DIGITS + 4);
-    sprintf(temp, "[%d] %s", theRealJob->jobid, theRealJob->info);
+    char *temp = NULL;
+    asprintf(&temp, "[%d] %s", theRealJob->jobid, theRealJob->info);
     return temp;
+}
+
+int jobCompare(const void *obj1, const void *obj2) {
+
+    return ((JobPtr)obj2)->jobid - ((JobPtr)obj1)->jobid;
 }
 
 

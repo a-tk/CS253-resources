@@ -17,6 +17,7 @@ struct node {
 
 struct list {
 	NodePtr head;
+    int (*Compar)(const void *, const void *);
     char *(*ToString)(const void *);
     void (*DestroyObject)(void *);
 };
@@ -25,11 +26,11 @@ struct list {
   Create a list
   @return a pointer to the new list
 */
-ListPtr CreateList(char *(*toString)(const void *), void (*freeObject)(void *));
+ListPtr CreateList(int (*Compar)(const void *, const void *), char *(*toString)(const void *), void (*freeObject)(void *));
 
 NodePtr CreateNode(void *item);
 
-void DestroyNode(NodePtr node);
+void DestroyNode(ListPtr L, NodePtr node);
 
 /**
   Add a node to the front  of the list.
@@ -39,6 +40,10 @@ void DestroyNode(NodePtr node);
  */
 void ListAddAtFront(ListPtr L, NodePtr node);
 
+/**
+ * Search the list for the Node containing the specified key value
+ */
+Node *ListSearch(ListPtr L, void *);
 
 /**
   Print the list from start to end.
@@ -46,6 +51,10 @@ void ListAddAtFront(ListPtr L, NodePtr node);
 */
 void ListPrint(ListPtr L);
 
+/**
+ * Reverses the list in place
+ */
+void ListReverse(ListPtr L);
 
 /**
   free the list

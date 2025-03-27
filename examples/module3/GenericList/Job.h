@@ -16,6 +16,7 @@ struct job {
 
 JobPtr createJob(int, char *);
 void freeJob(void * job);
+int jobCompare(const void *, const void *);
 char *jobToString(const void *);
 
 #endif /* __JOB_H */

@@ -3,9 +3,10 @@
 #include "SinglyLinkedList.h"
 
 
-ListPtr CreateList(char *(*ToString)(const void *), void (*DestroyObject)(void *)) {
+ListPtr CreateList(int (*Compar)(const void *, const void *), char *(*ToString)(const void *), void (*DestroyObject)(void *)) {
     ListPtr L = (ListPtr) malloc(sizeof(List));
     L->head = NULL;
+    L->Compar = Compar;
     L->ToString = ToString;
     L->DestroyObject = DestroyObject;
     return L;
@@ -18,11 +19,11 @@ NodePtr CreateNode(void *item) {
 }
 
 
-void DestroyNode(NodePtr node) {
+void DestroyNode(ListPtr L, NodePtr node) {
     if (node == NULL) return;
 
     //free the job, then free the node
-    // TODO: freeJob(node->item);
+    L->DestroyObject(node->item);
     free(node);
 }
 
@@ -32,6 +33,18 @@ void ListAddAtFront(ListPtr L, NodePtr node) {
 		node->next = L->head;
 		L->head = node;
 	}
+}
+
+
+Node *ListSearch(ListPtr L, void *obj) {
+
+    Node *t = L->head;
+    while (t) {
+        if (L->Compar(t->item, obj) == 0) break;
+        t = t->next;
+    }
+
+    return t;
 }
 
 void ListPrint(ListPtr L) {
@@ -57,5 +70,18 @@ void DestroyList(ListPtr L) {
         n = next;
 	}
     free(L);
+}
+
+
+void ListReverse(ListPtr L) {
+    Node *c = L->head;
+    Node *p = NULL;
+    while (c) {
+        Node *t = c->next;
+        c->next = p;
+        p = c;
+        c = t;
+    }
+    L->head = p;
 }
 
