@@ -2,18 +2,16 @@ CC=gcc
 LINK=ld
 CFLAGS=-Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
 
-all: test
+all: test.static
 
-test.static: test.o
-	$(CC) $(CFLAGS) -static $^ -o $@ -I. -L. -lmylib
+test.static: test.o libmylib.a
+	$(CC) $(CFLAGS) -static -I. -L. test.o -o $@ -lmylib
 
-# try without this first. -I. is default?
-# test.o: test.c libf.a
-# 	$(CC) $(CFLAGS) -I. $^ -c -o $@
+test.o: test.c
+	$(CC) $(CFLAGS) -I. $^ -c -o $@
 
 libmylib.a: f1.o f2.o f3.o
 	ar rcv libmylib.a f1.o f2.o f3.o
--include *.d
 
 f1.o:
 	$(CC) $(CFLAGS) -I. -fPIC -c -o f1.o f1.c

@@ -24,5 +24,5 @@ f3.o:
 
 
 clean:
-	/bin/rm -f *.o a.out *.d test
+	/bin/rm -f *.o a.out *.d test *.a
 	/bin/rm -f  libmylib.so
