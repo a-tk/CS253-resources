@@ -1,0 +1,30 @@
+CC=gcc
+LINK=ld
+CFLAGS=-Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
+
+all: test
+
+test.static: test.o
+	$(CC) $(CFLAGS) -static $^ -o $@ -I. -L. -lmylib
+
+# try without this first. -I. is default?
+# test.o: test.c libf.a
+# 	$(CC) $(CFLAGS) -I. $^ -c -o $@
+
+libmylib.a: f1.o f2.o f3.o
+	ar rcv libmylib.a f1.o f2.o f3.o
+-include *.d
+
+f1.o:
+	$(CC) $(CFLAGS) -I. -fPIC -c -o f1.o f1.c
+
+f2.o:
+	$(CC) $(CFLAGS) -I. -fPIC -c -o f2.o f2.c
+
+f3.o:
+	$(CC) $(CFLAGS) -I. -fPIC -c -o f3.o f3.c
+
+
+clean:
+	/bin/rm -f *.o a.out *.d test
+	/bin/rm -f  libmylib.a
