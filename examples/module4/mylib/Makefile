@@ -4,16 +4,14 @@ CFLAGS=-Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
 
 all: test
 
-test: test.o
+test: test.o libmylib.so
 	$(CC) $(CFLAGS) $^ -o $@ -I. -L. -lmylib
 
-# try without this first. -I. is default?
-# test.o: test.c libf.so
-# 	$(CC) $(CFLAGS) -I. $^ -c -o $@
+test.o: test.c
+	$(CC) $(CFLAGS) -I. $^ -c -o $@
 
 libmylib.so: f1.o f2.o f3.o
 	$(LINK) -fPIC -shared $^ -o libmylib.so
--include *.d
 
 f1.o:
 	$(CC) $(CFLAGS) -I. -fPIC -shared -c -o f1.o f1.c
