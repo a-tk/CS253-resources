@@ -14,7 +14,7 @@ void print_double(void *r) {
 
 /* prints whatever entered using a print function */
 void printer(void *v, void (*p)(void *)) {
-    p(v);
+    (*p)(v);
 }
 
 int main(void) {
