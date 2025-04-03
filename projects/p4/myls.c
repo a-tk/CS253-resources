@@ -15,7 +15,7 @@
 
 
 void printUsage(char *s) {
-    printf("Usage: %s -R -d <directory>\n", s);
+    printf("Usage: %s -d <directory> [-t/s] [-D]\n", s);
 }
 
 int main(int argc, char **argv) {
