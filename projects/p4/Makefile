@@ -6,13 +6,13 @@ LFLAGS =
 
 all: myls
 
-,yls: List.o myls.o file-info.o
+myls: List.o myls.o file-info.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 List.o: List.c
 	$(CC) $(CFLAGS) $^ -c -o $@
 
-simple-test: simple-test.o List.o
+simple-test: simple-test.o List.o file-info.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
