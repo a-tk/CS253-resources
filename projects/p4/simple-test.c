@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
         char *s;
         asprintf(&s, "dummy file #%d", i);
 		dummyfile = CreateFileInfo(s, 0L, 1024+i, 10);
-		ListAdd(list, 0, dummyfile);
+		ListAppend(list, dummyfile);
         free(s);
 	}
 
