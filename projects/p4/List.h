@@ -24,7 +24,7 @@ struct list {
  * Constructs an empty list with the DEFAULT_SIZE.
  * Returns NULL upon failure
  */
-ListPtr CreateArrayList(int (*Compar)(const void *, const void *), char *(*ToString)(const void *), void (*DestroyObject)(void *));
+ListPtr CreateList(int (*Compar)(const void *, const void *), char *(*ToString)(const void *), void (*DestroyObject)(void *));
 
 /* frees all memory associated with the list */
 void DestroyList(ListPtr L);
