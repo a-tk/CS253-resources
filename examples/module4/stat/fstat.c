@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 
     printf("File mode is %o\n", fileinfo.st_mode);
     printf("File size is %ld\n", fileinfo.st_size);
-    printf("File 512byte blocks used is %ld\n", fileinfo.st_blocks);
+    printf("# of 512 byte blocks used is %ld\n", fileinfo.st_blocks);
     printf("fs block size is %ld\n", fileinfo.st_blksize);
 
     // Close the file

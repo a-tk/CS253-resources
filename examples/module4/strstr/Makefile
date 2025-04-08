@@ -4,10 +4,10 @@ CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=gnu99 -g
 
 .PHONY: build test clean
 
-build: mycat
+build: strstr
 
-mycat: main.o
+strstr: main.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
 clean:
-	rm -f *.o *.d a.out mycat
+	rm -f *.o *.d a.out strstr

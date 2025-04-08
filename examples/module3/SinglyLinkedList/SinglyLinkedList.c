@@ -32,6 +32,8 @@ void DestroyList(ListPtr L) {
         t = t->next;
         DestroyNode(p);
     }
+
+    free(L);
 }
 
 

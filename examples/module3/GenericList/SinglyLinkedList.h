@@ -27,7 +27,13 @@ struct list {
   Create a list
   @return a pointer to the new list
 */
-ListPtr CreateList(int (*Compar)(const void *, const void *), char *(*toString)(const void *), void (*freeObject)(void *));
+ListPtr CreateList(int (*Compar)(const void *, const void *), 
+                    char *(*ToString)(const void *),
+                    void (*DestroyObject)(void *));
+
+/* Java time! */
+
+// ArrayList<Cat> list = new ArrayList<>();
 
 NodePtr CreateNode(void *item);
 
