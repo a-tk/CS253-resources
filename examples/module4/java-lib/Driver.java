@@ -1,4 +1,4 @@
-import mylib.Library;
+import mypackage.Library;
 
 public class Driver {
     public static void main(String[] args) {
