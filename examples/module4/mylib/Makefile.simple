@@ -5,15 +5,23 @@ CFLAGS=-Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
 all: test
 
 test:
+
 	# build each object file for the library
+
 	$(CC) $(CFLAGS) -I. -fPIC -shared -c -o f1.o f1.c
 	$(CC) $(CFLAGS) -I. -fPIC -shared -c -o f2.o f2.c
 	$(CC) $(CFLAGS) -I. -fPIC -shared -c -o f3.o f3.c
+
 	# use the linker to build the shared object (library)
+
 	$(LINK) -fPIC -shared f1.o f2.o f3.o -o libmylib.so
+
 	# build test.o using the current directory to look for header files
+
 	$(CC) $(CFLAGS) -I. test.c -c -o test.o
+
 	# build the final executable
+    
 	$(CC) $(CFLAGS) test.o libmylib.so -o $@ -I. -L. -lmylib
 
 
