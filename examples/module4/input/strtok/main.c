@@ -13,12 +13,13 @@ int main(int argc, char **argv) {
 
     char *filename = argv[1];
 
-    char *line = NULL, *token;
+    // for strtok
+    char *token;
 
+    // for getline
+    char *line = NULL;
     size_t linecap = 0;
     ssize_t linelen;
-
-
 
     FILE *f = fopen(filename, "r"); //open the file in read mode
     if (f == NULL) {
@@ -27,7 +28,6 @@ int main(int argc, char **argv) {
     }
     int wordCount = 0;
 
-    
     while ((linelen = getline(&line, &linecap, f)) != -1) {
         token = strtok(line, delimiters);
         while (token != NULL) {
