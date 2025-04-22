@@ -17,8 +17,10 @@ int main(void)
     while (fgets(buf, MAXLINE, stdin) != NULL)
     {
         buf[strlen(buf) - 1] = 0; /* replace newline with null */
-        if ((pid = fork()) < 0)
-            err_sys("fork error");
+        if ((pid = fork()) < 0){
+            perror("fork error");
+            exit(EXIT_FAILURE);
+        }
         else if (pid == 0)
         { /* child */
             execlp(buf, buf, (char *)0);
@@ -26,8 +28,10 @@ int main(void)
             exit(127);
         }
         /* parent */
-        if ((pid = waitpid(pid, &status, 0)) < 0)
-            err_sys("waitpid error");
+        if ((pid = waitpid(pid, &status, 0)) < 0) {
+            perror("waitpid error");
+            exit(EXIT_FAILURE);
+        }
         printf("%% ");
     }
     exit(0);
