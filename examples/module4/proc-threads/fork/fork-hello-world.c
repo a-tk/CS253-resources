@@ -5,7 +5,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void print_message_function(void *ptr), err_sys(char *msg);
+void print_message_function(char *ptr);
 
 int main(void) {
     pid_t pid;
@@ -13,8 +13,10 @@ int main(void) {
     char *message2 = "World";
 
     printf("before fork\n");
-    if ((pid = fork()) < 0)
-        err_sys("fork error");
+    if ((pid = fork()) < 0) {
+        perror("fork error");
+        exit(EXIT_FAILURE);
+    }
     else if (pid == 0) {
         /* first child */
         print_message_function(message1);
@@ -23,9 +25,11 @@ int main(void) {
     }
     printf("Created child: pid=%d\n", pid);
     
-    /* parent continues and creates another child */ 
-    if ((pid = fork()) < 0)
-        err_sys("fork error");
+    /* parent continues and creates another child */
+    if ((pid = fork()) < 0) {
+        perror("fork error");
+        exit(EXIT_FAILURE);
+    }
     else if (pid == 0) {
         /* second child */
         print_message_function(message2);
@@ -37,15 +41,6 @@ int main(void) {
     exit(0);
 }
 
-void print_message_function(void *ptr) {
-    char *message;
-    message = (char *)ptr;
+void print_message_function(char *message) {
     printf("%s ", message);
-}
-
-void err_sys(char *msg){
-
-    fprintf(stderr, msg);
-    fflush(NULL); /* flush all output streams */
-    exit(1);      /* exit abnormally */
 }
