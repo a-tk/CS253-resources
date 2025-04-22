@@ -4,35 +4,42 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
+/**
+ * uses GNU readline library for more features, like history.
+ */
 int main(void) {
     pid_t pid;
     int status;
-    printf("%% "); /* print prompt (printf requires %% to print %) */
 
-    char *line = NULL;
-    size_t linecap = 0;
-    ssize_t linelen;
-    while ((linelen = getline(&line, &linecap, stdin)) > 0) {
+    char *line;
+    char *prompt = "% ";
+    using_history(); /* enable readline history mechanism */
+    while ((line = readline(prompt))) {
 
         line[strlen(line) - 1] = 0; /* replace newline with null */
+        add_history(line); /* add current line to history list */
+
         if ((pid = fork()) < 0){
             perror("fork error");
             exit(EXIT_FAILURE);
         }
-        else if (pid == 0)
-        { /* child */
+        else if (pid == 0) { /* child */
             execlp(line, line, (char *)0);
             perror("exec failed");
             exit(EXIT_FAILURE);
         }
+        
         /* parent */
         if ((pid = waitpid(pid, &status, 0)) < 0) {
             perror("waitpid error");
             exit(EXIT_FAILURE);
         }
-        printf("%% ");
+
+        free(line);
     }
-    free(line);
+
     exit(0);
 }
