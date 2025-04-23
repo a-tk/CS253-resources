@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 void segmentation_handler(int x) {
     printf("Caught segfault! signal number %d\n", x);
@@ -9,15 +10,14 @@ void segmentation_handler(int x) {
     // exit(1);
 }
 
-/**
- * uses a signal handler to avoid being terminated by the OS for segmentation violation
- */
 int main(void) {
+    struct sigaction sa = {0};
+    sa.sa_handler = segmentation_handler;
+    sigemptyset(&sa.sa_mask);         // Don't block any signals during handler
+    sa.sa_flags = 0;                  // No special flags
 
-    void (*prev)(int) = signal(11, segmentation_handler); //prev stores a copy of the old handler
-
-    if (prev == SIG_ERR) {
-        perror("signal");
+    if (sigaction(SIGSEGV, &sa, NULL) == -1) {
+        perror("sigaction");
         exit(EXIT_FAILURE);
     }
 
