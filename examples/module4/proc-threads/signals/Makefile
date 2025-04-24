@@ -1,6 +1,6 @@
 SOURCES := $(wildcard *.c)
 TARGETS := $(SOURCES:.c=)
-CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
+CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -g
 
 .PHONY: all clean
 

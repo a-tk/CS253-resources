@@ -6,7 +6,10 @@
 void segmentation_handler(int x) {
     printf("Caught segfault! signal number %d\n", x);
     sleep(1);
-    // exit(1);
+    //signal(x, segmentation_handler);
+    //exit(1);
+
+    // you can also explore different behavior by compiling with -std=c99
 }
 
 /**
@@ -14,12 +17,7 @@ void segmentation_handler(int x) {
  */
 int main(void) {
 
-    void (*prev)(int) = signal(11, segmentation_handler); //prev stores a copy of the old handler
-
-    if (prev == SIG_ERR) {
-        perror("signal");
-        exit(EXIT_FAILURE);
-    }
+    signal(11, segmentation_handler);
 
     typedef struct{
         int a;

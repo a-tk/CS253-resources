@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 2
 #include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -12,6 +13,7 @@ void segmentation_handler(int x) {
 
 int main(void) {
     struct sigaction sa = {0};
+
     sa.sa_handler = segmentation_handler;
     sigemptyset(&sa.sa_mask);         // Don't block any signals during handler
     sa.sa_flags = 0;                  // No special flags

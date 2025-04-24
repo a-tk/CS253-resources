@@ -1,21 +1,14 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
+SOURCES := $(wildcard *.c)
+TARGETS := $(SOURCES:.c=)
+CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -g
 
-.PHONY: build clean
+.PHONY: all clean
 
-build: range range.o range.s range.e
+all: $(TARGETS)
 
-range: range.o
-	$(CC) $(CFLAGS) range.o -o range
-
-range.o: range.c
-	gcc $(CFLAGS) -c range.c -o range.o
-
-range.s: range.c
-	gcc $(CFLAGS) -S range.c -o range.s
-
-range.e: range.c
-	gcc $(CFLAGS) -E range.c -o range.e
+%: %.c
+	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f range.e range.o range.d range.i range.e range range.s
+	rm -f $(TARGETS)
+	rm -rf *.dSYM

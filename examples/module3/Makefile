@@ -1,18 +1,14 @@
-CC = gcc
+SOURCES := $(wildcard *.c)
+TARGETS := $(SOURCES:.c=)
+CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -g -lm
 
-CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
+.PHONY: all clean
 
-.PHONY:
+all: $(TARGETS)
 
-job1: job1.o
-	$(CC) $(CFLAGS) $^ -o $@
-
-point: point.o
-	$(CC) $(CFLAGS) -lm $^ -o $@
-point2: point2.o
-	$(CC) $(CFLAGS) -lm $^ -o $@
-point3: point3.o
-	$(CC) $(CFLAGS) -lm $^ -o $@
+%: %.c
+	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f *.o *.d *.s a.out point point2 point3 job1
+	rm -f $(TARGETS)
+	rm -rf *.dSYM

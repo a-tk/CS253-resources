@@ -1,15 +1,14 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
+SOURCES := $(wildcard *.c)
+TARGETS := $(SOURCES:.c=)
+CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -g
 
-.PHONY: build clean
+.PHONY: all clean
 
-build: pointer-practice 2d
+all: $(TARGETS)
 
-pointer-practice: pointer-practice.o
-	$(CC) $(CFLAGS) $^ -o $@
+%: %.c
+	$(CC) $(CFLAGS) -o $@ $<
 
-2d: 2d.o
-	$(CC) $(CFLAGS) $^ -o $@
-
-clean: 
-	rm -f *.o *.d pointer-practice 2d
+clean:
+	rm -f $(TARGETS)
+	rm -rf *.dSYM

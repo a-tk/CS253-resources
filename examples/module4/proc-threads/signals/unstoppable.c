@@ -10,6 +10,7 @@ void handler(int x) {
     if (x == SIGQUIT)  sig = "QUIT";
 
     printf("Can't %s this!\n", sig);
+    signal(x, handler);
 }
 
 /**
@@ -19,18 +20,9 @@ int main(void) {
 
     printf("pid = %d\n", getpid());
 
-    if (signal(SIGTSTP, handler) == SIG_ERR) {
-        perror("signal");
-        exit(EXIT_FAILURE);
-    }
-    if (signal(SIGINT, handler) == SIG_ERR) {
-        perror("signal");
-        exit(EXIT_FAILURE);
-    }
-    if (signal(SIGQUIT, handler) == SIG_ERR) {
-        perror("signal");
-        exit(EXIT_FAILURE);
-    }
+    signal(SIGTSTP, handler);
+    signal(SIGINT, handler);
+    signal(SIGQUIT, handler);
 
     for (;;) sleep(10);
 
