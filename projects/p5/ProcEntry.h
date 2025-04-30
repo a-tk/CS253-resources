@@ -71,8 +71,8 @@ char *ProcEntryToString(const void *entry);
  *    a is compared to b by process_id. A negative value is
  *    returned if a's process_id is less than b's process_id.
  *    Zero is returned if both process_id's are the same. 
- *    A negative value is returned if a's process_id
- *    is less than b's process_id.
+ *    A positive value is returned if a's process_id
+ *    is greater than b's process_id.
  * 
  *    Objects are type void * for compatibility with qsort.
  * 
@@ -84,10 +84,10 @@ int ProcEntryPidCompar(const void *a, const void *b);
 
 /* ProcEntryCommCompar: Perform comparison of two ProcEntry structs.
  *    a is compared to b by command. A negative value is
- *    returned if a's comm is less than b's comm via strmp.
+ *    returned if a's comm is less than b's comm via strcmp.
  *    Zero is returned if both comm's are the same. 
- *    A negative value is returned if a's comm
- *    is less than b's comm via strcmp.
+ *    A positive value is returned if a's comm
+ *    is greater than b's comm via strcmp.
  * 
  *    Objects are type void * for compatibility with qsort.
  * 
