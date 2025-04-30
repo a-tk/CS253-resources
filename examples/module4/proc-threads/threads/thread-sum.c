@@ -7,12 +7,11 @@
 #include <sys/times.h>
 #include <sys/time.h>
 
-#define NUM_THREADS 5
-
 void *partial_sum(void *ptr);
-int *values;
-int n;
-int result[NUM_THREADS]; /* partial sums array */
+static int *values;
+static int n;
+static int num_threads;
+static int *result; /* partial sums array */
 
 float report_sys_time(void);
 float report_user_time(void);
@@ -20,46 +19,48 @@ double getMilliSeconds(void);
 
 int  main( int argc, char **argv)
 {
-    int i; // used to index into user requested n
     long sum = 0;
-    // the applications perception of time
-    double start_time, real_time;
 
-    //total computational power
-    float user_time_s, user_time_t;
-    pthread_t threads[NUM_THREADS] = {0}; // fast way to initialize the array to zero
+    pthread_t *threads; // fast way to initialize the array to zero
 
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <n> \n", argv[0]);
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <num_threads> <n>\n", argv[0]);
         exit(EX_USAGE);
     }
-    printf("Using %d threads\n", NUM_THREADS);
 
-    n = atoi(argv[1]);
-    values = (int *) malloc(sizeof(int)*n);
-    for (i=0; i<n; i++)
+    num_threads = atoi(argv[1]);
+    n = atoi(argv[2]);
+    values = (int *) malloc(sizeof(int) * n);
+    result = (int *) malloc(sizeof(int) * num_threads);
+    threads = (pthread_t *) malloc(sizeof(pthread_t) * num_threads);
+
+    for (int i = 0; i < n; i++) {
         values[i] = 1;
+    }
 
+    // the applications perception of time
+    double start_time, real_time;
+    //total computational power
+    float user_time_s, user_time_t;
 
     // collect that starting point for real time perception
     start_time = getMilliSeconds();
     // collect starting point for user and sys time
     user_time_s = report_user_time();
 
-    int index; // used as thread index
-
+    int index;
     // create the threads
-    for (index = 0; index < NUM_THREADS; index++) {
+    for (index = 0; index < num_threads; index++) {
         pthread_create(&threads[index], NULL, partial_sum, (void *) index);
     }
 
     // wait for them to finish
-    for (index = 0; index < NUM_THREADS; index++) {
+    for (index = 0; index < num_threads; index++) {
         pthread_join(threads[index], NULL);
     }
 
     // compute the results
-    for (index = 0; index < NUM_THREADS; index++) {
+    for (index = 0; index < num_threads; index++) {
         sum += result[index];
     }
 
@@ -84,10 +85,10 @@ void *partial_sum(void *ptr)
     index = (int) ptr; //abuse parameter passing mechanism to obtain copy
 
     sum = 0;
-    // total array is size n. Split into NUM_THREADS chunks
+    // total array is size n. Split into num_threads chunks
     
-    start = index * (n / NUM_THREADS);
-    end = ((index + 1) * (n / NUM_THREADS) - 1);
+    start = index * (n / num_threads);
+    end = ((index + 1) * (n / num_threads) - 1);
 
     for (i=start; i<=end; i++)
         sum += values[i];
