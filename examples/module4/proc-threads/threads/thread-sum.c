@@ -5,80 +5,109 @@
 #include <pthread.h>
 #include <string.h>
 #include <sys/times.h>
+#include <sys/time.h>
+
+#define NUM_THREADS 5
 
 void *partial_sum(void *ptr);
 int *values;
 int n;
-int result[2]; /* partial sums arrays */
+int result[NUM_THREADS]; /* partial sums array */
 
-float report_cpu_time(void);
+float report_sys_time(void);
+float report_user_time(void);
+double getMilliSeconds(void);
 
 int  main( int argc, char **argv)
 {
-    int i;
-    long sum;
-    float start_time, total_time;
-    pthread_t thread1, thread2;
+    int i; // used to index into user requested n
+    long sum = 0;
+    // the applications perception of time
+    double start_time, real_time;
+
+    //total computational power
+    float user_time_s, user_time_t;
+    pthread_t threads[NUM_THREADS] = {0}; // fast way to initialize the array to zero
 
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <n> \n", argv[0]);
         exit(EX_USAGE);
     }
+    printf("Using %d threads\n", NUM_THREADS);
+
     n = atoi(argv[1]);
     values = (int *) malloc(sizeof(int)*n);
     for (i=0; i<n; i++)
         values[i] = 1;
 
 
-    start_time = report_cpu_time();
+    // collect that starting point for real time perception
+    start_time = getMilliSeconds();
+    // collect starting point for user and sys time
+    user_time_s = report_user_time();
 
-    pthread_create(&thread1, NULL, partial_sum, (void *) "1");
-    pthread_create(&thread2, NULL, partial_sum, (void *) "2");
+    int index; // used as thread index
 
-    pthread_join(thread1, NULL);
-    pthread_join(thread2, NULL);
+    // create the threads
+    for (index = 0; index < NUM_THREADS; index++) {
+        pthread_create(&threads[index], NULL, partial_sum, (void *) index);
+    }
 
-    sum = result[0] + result[1];
-    total_time = report_cpu_time() - start_time;
+    // wait for them to finish
+    for (index = 0; index < NUM_THREADS; index++) {
+        pthread_join(threads[index], NULL);
+    }
 
-    printf("Total sum = %ld time taken = %lf seconds\n", sum, total_time );
+    // compute the results
+    for (index = 0; index < NUM_THREADS; index++) {
+        sum += result[index];
+    }
+
+    // calculated percieved time
+    real_time = getMilliSeconds() - start_time;
+
+    // calculated computation time in user space
+    user_time_t = report_user_time() - user_time_s;
+
+    printf("Total sum = %ld real time taken = %lf milliseconds\n", sum, real_time);
+    printf("\tTotal computation time = %g milliseconds\n", user_time_t);
 
     exit(EXIT_SUCCESS);
 }
 
 void *partial_sum(void *ptr)
 {
-    char *message;
-    int sum;
+    int sum = 0;
     int i;
     int start, end, index;
 
-    message = (char *) ptr;
-    printf("%s ", message);
+    index = (int) ptr; //abuse parameter passing mechanism to obtain copy
 
     sum = 0;
-    if (strcmp(message,"1") == 0)  {
-        index = 0;
-        start = 0;
-        end = n/2;
-    } else {
-        index = 1;
-        start = n/2 + 1;
-        end = n - 1;
-    }
+    // total array is size n. Split into NUM_THREADS chunks
+    
+    start = index * (n / NUM_THREADS);
+    end = ((index + 1) * (n / NUM_THREADS) - 1);
 
     for (i=start; i<=end; i++)
         sum += values[i];
 
+    printf("index = %d, sum = %d\n", index, sum);
     result[index] = sum;
     pthread_exit(NULL);
 }
 
-float report_cpu_time(void) {
+float report_user_time(void) {
     struct tms buffer;
     float cputime;
 
     times(&buffer);
     cputime = (buffer.tms_utime)/ (float) sysconf(_SC_CLK_TCK);
-    return (cputime);
+    return (cputime * 1000);
+}
+
+double getMilliSeconds(void) {
+    struct timeval now;
+    gettimeofday(&now, (struct timezone *)0);
+    return (double) now.tv_sec*1000.0 + now.tv_usec/1000.0;
 }
